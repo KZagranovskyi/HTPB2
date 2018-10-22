@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119958037-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119958037-1');
+    </script>
+    <title>Netherlands house prices post crisis recovery.
+    </title>
+    <meta name="description=" content="Netherlands house prices post-crisis recovery. Average purchase prices in all the cities in Netherlands."/>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" type="text/css" href="scss/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="dist/theme.min.css" />
+
+    <!-- javascript -->
+    <script src="dist/theme.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
+</head>
+<body>
+<div class="navbar navbar-dark navbar-expand-lg" role="banner">
+    <div class="container">
+        <a class="navbar-brand" href="index2.html">
+            <img src="images/logo-light.png" class="mr-2 img-fluid" />
+            Dutch house price trends
+        </a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="rent-vs-ownership.html" class="nav-link" >Renting vs Owning</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="buy-to-let-in-netherlands.html" class="nav-link" >Buy-to-let</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="amsterdam-netherlands-airbnb-rules.html" class="nav-link" >Short-term rent(Airbnb)</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="latest-news.html" class="nav-link" >Housing news</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="start" class="pricing-comparison-section">
+
+    <div class="pricing-comparison-section">
+        <div class="container">
+
+            <div class="main-header">
+                <h3>House prices post crisis recovery</h3>
+                <p>
+                    Prices in much of the Netherlands have still to surpass their pre-crisis levels.
+                    In the country’s four largest cities, however — Amsterdam, Utrecht, Rotterdam and The Hague — prices are now
+                    higher than at their pre-crisis peak, with Amsterdam prices furthest ahead. There are some regions where prices
+                    are still lower than before the crisis.
+                </p>
+            </div>
+
+            <table style="width: 100%;">
+                <thead><tr ><th>City</th><th>2008 Purchase Prices</th><th>2017 Purchase Prices</th><th>2008-2017 Growth</th></tr></thead><tbody>
+            <tr><td>Amsterdam</td><td>€305,206</td><td>€407,670</td><td>33.60%</td></tr>
+            <tr><td>Sluis</td><td>€176,480</td><td>€223,694</td><td>26.80%</td></tr>
+            <tr><td>Landsmeer</td><td>€335,556</td><td>€422,625</td><td>25.90%</td></tr>
+            <tr><td>Amstelveen</td><td>€337,305</td><td>€420,478</td><td>24.70%</td></tr>
+            <tr><td>Aalsmeer</td><td>€304,057</td><td>€375,983</td><td>23.70%</td></tr>
+            <tr><td>Urk</td><td>€180,598</td><td>€218,969</td><td>21.20%</td></tr>
+            <tr><td>Haarlem</td><td>€270,670</td><td>€324,843</td><td>20.00%</td></tr>
+            <tr><td>Rotterdam</td><td>€190,143</td><td>€227,834</td><td>19.80%</td></tr>
+            <tr><td>Ameland</td><td>€210,325</td><td>€251,805</td><td>19.70%</td></tr>
+            <tr><td>The Hague</td><td>€228,682</td><td>€266,672</td><td>16.60%</td></tr>
+            <tr><td>Voorschoten</td><td>€305,462</td><td>€354,850</td><td>16.20%</td></tr>
+            <tr><td>Wassenaar</td><td>€607,227</td><td>€705,228</td><td>16.10%</td></tr>
+            <tr><td>Texel</td><td>€252,333</td><td>€292,311</td><td>15.80%</td></tr>
+            <tr><td>Weesp</td><td>€240,096</td><td>€278,028</td><td>15.80%</td></tr>
+            <tr><td>Heemskerk</td><td>€231,877</td><td>€268,086</td><td>15.60%</td></tr>
+            <tr><td>Utrecht</td><td>€267,507</td><td>€307,737</td><td>15.00%</td></tr>
+            <tr><td>Zwartewaterland</td><td>€197,098</td><td>€225,229</td><td>14.30%</td></tr>
+            <tr><td>Groningen</td><td>€182,934</td><td>€206,996</td><td>13.20%</td></tr>
+            <tr><td>Olst-Wijhe</td><td>€221,576</td><td>€250,595</td><td>13.10%</td></tr>
+            <tr><td>Winterswijk</td><td>€170,663</td><td>€191,818</td><td>12.40%</td></tr>
+            <tr><td>Woerden</td><td>€282,095</td><td>€316,915</td><td>12.30%</td></tr>
+            <tr><td>Roermond</td><td>€203,475</td><td>€225,102</td><td>10.60%</td></tr>
+            <tr><td>Ouder-Amstel</td><td>€372,595</td><td>€411,718</td><td>10.50%</td></tr>
+            <tr><td>Venlo</td><td>€184,089</td><td>€203,397</td><td>10.50%</td></tr>
+            <tr><td>Beverwijk</td><td>€203,237</td><td>€224,475</td><td>10.40%</td></tr>
+            <tr><td>Terneuzen</td><td>€158,476</td><td>€174,793</td><td>10.30%</td></tr>
+            <tr><td>Enschede</td><td>€183,827</td><td>€202,828</td><td>10.30%</td></tr>
+            <tr><td>Uithoorn</td><td>€269,964</td><td>€297,414</td><td>10.20%</td></tr>
+            <tr><td>Veere</td><td>€252,205</td><td>€277,322</td><td>10.00%</td></tr>
+            <tr><td>Enkhuizen</td><td>€206,671</td><td>€227,100</td><td>9.90%</td></tr>
+            <tr><td>Waterland</td><td>€355,585</td><td>€390,651</td><td>9.90%</td></tr>
+            <tr><td>Zoeterwoude</td><td>€308,278</td><td>€338,208</td><td>9.70%</td></tr>
+            <tr><td>Kampen</td><td>€200,039</td><td>€218,823</td><td>9.40%</td></tr>
+            <tr><td>Houten</td><td>€321,049</td><td>€350,247</td><td>9.10%</td></tr>
+            <tr><td>Leiden</td><td>€260,213</td><td>€283,245</td><td>8.90%</td></tr>
+            <tr><td>Albrandswaard</td><td>€300,151</td><td>€326,356</td><td>8.70%</td></tr>
+            <tr><td>Bunnik</td><td>€326,760</td><td>€354,780</td><td>8.60%</td></tr>
+            <tr><td>De Ronde Venen</td><td>€330,902</td><td>€359,267</td><td>8.60%</td></tr>
+            <tr><td>Lansingerland</td><td>€314,254</td><td>€340,908</td><td>8.50%</td></tr>
+            <tr><td>Leeuwarden</td><td>€163,906</td><td>€177,737</td><td>8.40%</td></tr>
+            <tr><td>Alkmaar</td><td>€219,564</td><td>€238,071</td><td>8.40%</td></tr>
+            <tr><td>Amersfoort</td><td>€274,327</td><td>€296,863</td><td>8.20%</td></tr>
+            <tr><td>Zaanstad</td><td>€218,672</td><td>€236,187</td><td>8.00%</td></tr>
+            <tr><td>Almere</td><td>€223,489</td><td>€240,518</td><td>7.60%</td></tr>
+            <tr><td>Uitgeest</td><td>€260,618</td><td>€280,124</td><td>7.50%</td></tr>
+            <tr><td>Midden-Drenthe</td><td>€218,412</td><td>€234,557</td><td>7.40%</td></tr>
+            <tr><td>Eindhoven</td><td>€240,779</td><td>€258,287</td><td>7.30%</td></tr>
+            <tr><td>Zwolle</td><td>€229,305</td><td>€245,803</td><td>7.20%</td></tr>
+            <tr><td>Ridderkerk</td><td>€201,928</td><td>€216,478</td><td>7.20%</td></tr>
+            <tr><td>Deventer</td><td>€211,700</td><td>€226,791</td><td>7.10%</td></tr>
+            <tr><td>Rucphen</td><td>€248,882</td><td>€266,644</td><td>7.10%</td></tr>
+            <tr><td>Losser</td><td>€228,750</td><td>€244,841</td><td>7.00%</td></tr>
+            <tr><td>Aalten</td><td>€193,222</td><td>€206,497</td><td>6.90%</td></tr>
+            <tr><td>Noord-Beveland</td><td>€196,402</td><td>€209,737</td><td>6.80%</td></tr>
+            <tr><td>Noordwijk</td><td>€384,677</td><td>€410,789</td><td>6.80%</td></tr>
+            <tr><td>Tubbergen</td><td>€253,736</td><td>€270,855</td><td>6.70%</td></tr>
+            <tr><td>Assen</td><td>€186,792</td><td>€199,135</td><td>6.60%</td></tr>
+            <tr><td>Hellevoetsluis</td><td>€223,750</td><td>€238,097</td><td>6.40%</td></tr>
+            <tr><td>Slochteren</td><td>€220,804</td><td>€234,489</td><td>6.20%</td></tr>
+            <tr><td>Nuth</td><td>€211,644</td><td>€224,598</td><td>6.10%</td></tr>
+            <tr><td>Pijnacker-Nootdorp</td><td>€300,595</td><td>€317,277</td><td>5.50%</td></tr>
+            <tr><td>Zoetermeer</td><td>€218,798</td><td>€230,590</td><td>5.40%</td></tr>
+            <tr><td>Woensdrecht</td><td>€234,463</td><td>€246,827</td><td>5.30%</td></tr>
+            <tr><td>Bedum</td><td>€188,657</td><td>€198,676</td><td>5.30%</td></tr>
+            <tr><td>Ten Boer</td><td>€184,785</td><td>€194,652</td><td>5.30%</td></tr>
+            <tr><td>IJsselstein</td><td>€273,547</td><td>€287,639</td><td>5.20%</td></tr>
+            <tr><td>Haarlemmermeer</td><td>€295,233</td><td>€310,708</td><td>5.20%</td></tr>
+            <tr><td>Delft</td><td>€238,041</td><td>€250,075</td><td>5.10%</td></tr>
+            <tr><td>Onderbanken</td><td>€207,266</td><td>€217,879</td><td>5.10%</td></tr>
+            <tr><td>Schagen</td><td>€236,941</td><td>€248,430</td><td>4.80%</td></tr>
+            <tr><td>Stein (L.)</td><td>€197,235</td><td>€206,656</td><td>4.80%</td></tr>
+            <tr><td>Beemster</td><td>€304,381</td><td>€318,243</td><td>4.60%</td></tr>
+            <tr><td>Ommen</td><td>€242,985</td><td>€254,228</td><td>4.60%</td></tr>
+            <tr><td>Zandvoort</td><td>€335,863</td><td>€351,028</td><td>4.50%</td></tr>
+            <tr><td>Bergen</td><td>€443,170</td><td>€463,173</td><td>4.50%</td></tr>
+            <tr><td>Heerhugowaard</td><td>€222,534</td><td>€232,306</td><td>4.40%</td></tr>
+            <tr><td>Nieuwegein</td><td>€231,134</td><td>€241,070</td><td>4.30%</td></tr>
+            <tr><td>Middelburg (Z.)</td><td>€223,481</td><td>€232,814</td><td>4.20%</td></tr>
+            <tr><td>Echt-Susteren</td><td>€202,111</td><td>€210,676</td><td>4.20%</td></tr>
+            <tr><td>s-Hertogenbosch</td><td>€277,835</td><td>€288,878</td><td>4.00%</td></tr>
+            <tr><td>Zevenaar</td><td>€212,618</td><td>€221,023</td><td>4.00%</td></tr>
+            <tr><td>De Bilt</td><td>€436,729</td><td>€454,080</td><td>4.00%</td></tr>
+            <tr><td>Hulst</td><td>€191,943</td><td>€199,354</td><td>3.90%</td></tr>
+            <tr><td>Beesel</td><td>€213,018</td><td>€221,375</td><td>3.90%</td></tr>
+            <tr><td>Heemstede</td><td>€494,793</td><td>€514,206</td><td>3.90%</td></tr>
+            <tr><td>Landgraaf</td><td>€180,821</td><td>€187,701</td><td>3.80%</td></tr>
+            <tr><td>Maastricht</td><td>€231,883</td><td>€240,627</td><td>3.80%</td></tr>
+            <tr><td>Nijmegen</td><td>€240,118</td><td>€248,912</td><td>3.70%</td></tr>
+            <tr><td>Oost Gelre</td><td>€203,205</td><td>€210,451</td><td>3.60%</td></tr>
+            <tr><td>Valkenburg aan de Geul</td><td>€243,937</td><td>€252,750</td><td>3.60%</td></tr>
+            <tr><td>Voerendaal</td><td>€246,550</td><td>€255,532</td><td>3.60%</td></tr>
+            <tr><td>Menterwolde</td><td>€177,742</td><td>€183,958</td><td>3.50%</td></tr>
+            <tr><td>Rhenen</td><td>€292,807</td><td>€303,161</td><td>3.50%</td></tr>
+            <tr><td>Kerkrade</td><td>€153,858</td><td>€159,034</td><td>3.40%</td></tr>
+            <tr><td>Baarn</td><td>€352,729</td><td>€364,285</td><td>3.30%</td></tr>
+            <tr><td>Breda</td><td>€286,107</td><td>€295,568</td><td>3.30%</td></tr>
+            <tr><td>Lingewaal</td><td>€299,193</td><td>€308,917</td><td>3.30%</td></tr>
+            <tr><td>Hendrik-Ido-Ambacht</td><td>€250,965</td><td>€258,871</td><td>3.20%</td></tr>
+            <tr><td>Oegstgeest</td><td>€360,379</td><td>€372,085</td><td>3.20%</td></tr>
+            <tr><td>Renswoude</td><td>€307,911</td><td>€317,455</td><td>3.10%</td></tr>
+            <tr><td>Schiermonnikoog</td><td>€337,000</td><td>€347,199</td><td>3.00%</td></tr>
+            <tr><td>Alblasserdam</td><td>€226,449</td><td>€233,036</td><td>2.90%</td></tr>
+            <tr><td>Capelle aan den IJssel</td><td>€213,802</td><td>€219,934</td><td>2.90%</td></tr>
+            <tr><td>Almelo</td><td>€172,286</td><td>€177,040</td><td>2.80%</td></tr>
+            <tr><td>Drechterland</td><td>€260,705</td><td>€267,955</td><td>2.80%</td></tr>
+            <tr><td>Heerenveen</td><td>€215,080</td><td>€220,721</td><td>2.60%</td></tr>
+            <tr><td>Leek</td><td>€220,834</td><td>€226,543</td><td>2.60%</td></tr>
+            <tr><td>Marum</td><td>€231,765</td><td>€237,583</td><td>2.50%</td></tr>
+            <tr><td>Gulpen-Wittem</td><td>€254,987</td><td>€261,232</td><td>2.40%</td></tr>
+            <tr><td>Steenbergen</td><td>€218,185</td><td>€223,242</td><td>2.30%</td></tr>
+            <tr><td>Horst aan de Maas</td><td>€237,527</td><td>€242,769</td><td>2.20%</td></tr>
+            <tr><td>Soest</td><td>€332,416</td><td>€339,565</td><td>2.20%</td></tr>
+            <tr><td>Opsterland</td><td>€217,626</td><td>€222,197</td><td>2.10%</td></tr>
+            <tr><td>Reimerswaal</td><td>€195,449</td><td>€199,257</td><td>1.90%</td></tr>
+            <tr><td>Emmen</td><td>€181,218</td><td>€184,750</td><td>1.90%</td></tr>
+            <tr><td>Barendrecht</td><td>€288,588</td><td>€294,183</td><td>1.90%</td></tr>
+            <tr><td>Vlagtwedde</td><td>€195,246</td><td>€199,017</td><td>1.90%</td></tr>
+            <tr><td>Hoogezand-Sappemeer</td><td>€171,688</td><td>€174,784</td><td>1.80%</td></tr>
+            <tr><td>Lingewaard</td><td>€250,887</td><td>€255,501</td><td>1.80%</td></tr>
+            <tr><td>Dongeradeel</td><td>€178,035</td><td>€181,244</td><td>1.80%</td></tr>
+            <tr><td>Hilversum</td><td>€319,097</td><td>€324,560</td><td>1.70%</td></tr>
+            <tr><td>Noordoostpolder</td><td>€206,608</td><td>€209,773</td><td>1.50%</td></tr>
+            <tr><td>Purmerend</td><td>€233,104</td><td>€236,098</td><td>1.30%</td></tr>
+            <tr><td>Rheden</td><td>€260,716</td><td>€263,866</td><td>1.20%</td></tr>
+            <tr><td>Hoorn</td><td>€231,154</td><td>€234,005</td><td>1.20%</td></tr>
+            <tr><td>Stede Broec</td><td>€225,591</td><td>€228,179</td><td>1.10%</td></tr>
+            <tr><td>Harlingen</td><td>€184,064</td><td>€185,938</td><td>1.00%</td></tr>
+            <tr><td>Wageningen</td><td>€250,596</td><td>€253,026</td><td>1.00%</td></tr>
+            <tr><td>Doesburg</td><td>€244,104</td><td>€246,640</td><td>1.00%</td></tr>
+            <tr><td>Rijswijk (ZH.)</td><td>€212,611</td><td>€214,799</td><td>1.00%</td></tr>
+            <tr><td>Etten-Leur</td><td>€267,002</td><td>€269,692</td><td>1.00%</td></tr>
+            <tr><td>Arnhem</td><td>€219,351</td><td>€221,424</td><td>0.90%</td></tr>
+            <tr><td>Nijkerk</td><td>€299,174</td><td>€301,966</td><td>0.90%</td></tr>
+            <tr><td>Elburg</td><td>€262,808</td><td>€265,099</td><td>0.90%</td></tr>
+            <tr><td>Beuningen</td><td>€256,208</td><td>€258,172</td><td>0.80%</td></tr>
+            <tr><td>Vaals</td><td>€191,999</td><td>€193,381</td><td>0.70%</td></tr>
+            <tr><td>Geldrop-Mierlo</td><td>€276,427</td><td>€278,384</td><td>0.70%</td></tr>
+            <tr><td>Vlissingen</td><td>€178,043</td><td>€179,186</td><td>0.60%</td></tr>
+            <tr><td>Hof van Twente</td><td>€248,309</td><td>€249,795</td><td>0.60%</td></tr>
+            <tr><td>Tynaarlo</td><td>€272,412</td><td>€273,808</td><td>0.50%</td></tr>
+            <tr><td>Tilburg</td><td>€226,023</td><td>€227,092</td><td>0.50%</td></tr>
+            <tr><td>Teylingen</td><td>€338,366</td><td>€339,955</td><td>0.50%</td></tr>
+            <tr><td>Kapelle</td><td>€227,360</td><td>€228,219</td><td>0.40%</td></tr>
+            <tr><td>Hardenberg</td><td>€217,521</td><td>€218,144</td><td>0.30%</td></tr>
+            <tr><td>Oostzaan</td><td>€354,926</td><td>€356,080</td><td>0.30%</td></tr>
+            <tr><td>Oldenzaal</td><td>€243,543</td><td>€243,961</td><td>0.20%</td></tr>
+            <tr><td>Papendrecht</td><td>€226,024</td><td>€226,198</td><td>0.10%</td></tr>
+            <tr><td>Weert</td><td>€232,033</td><td>€232,307</td><td>0.10%</td></tr>
+            <tr><td>Leiderdorp</td><td>€283,939</td><td>€284,180</td><td>0.10%</td></tr>
+            <tr><td>Dordrecht</td><td>€200,833</td><td>€200,733</td><td>0.00%</td></tr>
+            <tr><td>Lelystad</td><td>€196,381</td><td>€196,170</td><td>-0.10%</td></tr>
+            <tr><td>Staphorst</td><td>€246,379</td><td>€245,935</td><td>-0.20%</td></tr>
+            <tr><td>Bunschoten</td><td>€274,737</td><td>€274,301</td><td>-0.20%</td></tr>
+            <tr><td>Vianen</td><td>€272,172</td><td>€271,477</td><td>-0.30%</td></tr>
+            <tr><td>Gouda</td><td>€208,113</td><td>€207,498</td><td>-0.30%</td></tr>
+            <tr><td>Hillegom</td><td>€270,233</td><td>€269,474</td><td>-0.30%</td></tr>
+            <tr><td>Brunssum</td><td>€156,717</td><td>€156,069</td><td>-0.40%</td></tr>
+            <tr><td>Simpelveld</td><td>€200,269</td><td>€199,324</td><td>-0.50%</td></tr>
+            <tr><td>Leidschendam-Voorburg</td><td>€282,357</td><td>€280,929</td><td>-0.50%</td></tr>
+            <tr><td>Westervoort</td><td>€207,104</td><td>€205,864</td><td>-0.60%</td></tr>
+            <tr><td>Rijnwaarden</td><td>€208,554</td><td>€207,339</td><td>-0.60%</td></tr>
+            <tr><td>Alphen aan den Rijn</td><td>€248,638</td><td>€246,886</td><td>-0.70%</td></tr>
+            <tr><td>Ermelo</td><td>€302,549</td><td>€299,821</td><td>-0.90%</td></tr>
+            <tr><td>Velsen</td><td>€282,716</td><td>€279,962</td><td>-1.00%</td></tr>
+            <tr><td>Diemen</td><td>€244,920</td><td>€242,589</td><td>-1.00%</td></tr>
+            <tr><td>Strijen</td><td>€263,927</td><td>€261,215</td><td>-1.00%</td></tr>
+            <tr><td>Vlaardingen</td><td>€189,347</td><td>€187,120</td><td>-1.20%</td></tr>
+            <tr><td>Duiven</td><td>€237,374</td><td>€234,145</td><td>-1.40%</td></tr>
+            <tr><td>Langedijk</td><td>€285,570</td><td>€281,401</td><td>-1.50%</td></tr>
+            <tr><td>Gilze en Rijen</td><td>€260,267</td><td>€256,422</td><td>-1.50%</td></tr>
+            <tr><td>Schinnen</td><td>€222,300</td><td>€219,053</td><td>-1.50%</td></tr>
+            <tr><td>Littenseradiel</td><td>€209,760</td><td>€206,713</td><td>-1.50%</td></tr>
+            <tr><td>Leeuwarderadeel</td><td>€187,704</td><td>€184,494</td><td>-1.70%</td></tr>
+            <tr><td>Overbetuwe</td><td>€270,466</td><td>€265,675</td><td>-1.80%</td></tr>
+            <tr><td>Sittard-Geleen</td><td>€188,059</td><td>€184,726</td><td>-1.80%</td></tr>
+            <tr><td>Eemnes</td><td>€378,630</td><td>€371,731</td><td>-1.80%</td></tr>
+            <tr><td>Hattem</td><td>€305,655</td><td>€300,119</td><td>-1.80%</td></tr>
+            <tr><td>Pekela</td><td>€153,344</td><td>€150,431</td><td>-1.90%</td></tr>
+            <tr><td>Smallingerland</td><td>€194,807</td><td>€190,981</td><td>-2.00%</td></tr>
+            <tr><td>Wormerland</td><td>€290,947</td><td>€285,008</td><td>-2.00%</td></tr>
+            <tr><td>Opmeer</td><td>€246,652</td><td>€241,404</td><td>-2.10%</td></tr>
+            <tr><td>Roerdalen</td><td>€207,108</td><td>€202,514</td><td>-2.20%</td></tr>
+            <tr><td>Haren</td><td>€339,954</td><td>€332,386</td><td>-2.20%</td></tr>
+            <tr><td>Winsum</td><td>€200,207</td><td>€195,820</td><td>-2.20%</td></tr>
+            <tr><td>Hoogeveen</td><td>€192,917</td><td>€188,528</td><td>-2.30%</td></tr>
+            <tr><td>Meppel</td><td>€228,984</td><td>€223,764</td><td>-2.30%</td></tr>
+            <tr><td>Aalburg</td><td>€286,518</td><td>€279,988</td><td>-2.30%</td></tr>
+            <tr><td>Heerlen</td><td>€154,325</td><td>€150,459</td><td>-2.50%</td></tr>
+            <tr><td>Appingedam</td><td>€179,629</td><td>€174,924</td><td>-2.60%</td></tr>
+            <tr><td>Nunspeet</td><td>€307,428</td><td>€299,288</td><td>-2.60%</td></tr>
+            <tr><td>Wijk bij Duurstede</td><td>€308,127</td><td>€300,170</td><td>-2.60%</td></tr>
+            <tr><td>Epe</td><td>€309,682</td><td>€301,598</td><td>-2.60%</td></tr>
+            <tr><td>Harderwijk</td><td>€279,483</td><td>€271,810</td><td>-2.70%</td></tr>
+            <tr><td>Wierden</td><td>€266,190</td><td>€258,629</td><td>-2.80%</td></tr>
+            <tr><td>Terschelling</td><td>€317,070</td><td>€308,242</td><td>-2.80%</td></tr>
+            <tr><td>Maasgouw</td><td>€226,583</td><td>€220,019</td><td>-2.90%</td></tr>
+            <tr><td>Hardinxveld-Giessendam</td><td>€254,301</td><td>€246,909</td><td>-2.90%</td></tr>
+            <tr><td>Noordenveld</td><td>€253,721</td><td>€246,318</td><td>-2.90%</td></tr>
+            <tr><td>Heiloo</td><td>€346,002</td><td>€335,901</td><td>-2.90%</td></tr>
+            <tr><td>Haaksbergen</td><td>€251,791</td><td>€244,344</td><td>-3.00%</td></tr>
+            <tr><td>Leerdam</td><td>€261,810</td><td>€253,852</td><td>-3.00%</td></tr>
+            <tr><td>Schiedam</td><td>€169,740</td><td>€164,489</td><td>-3.10%</td></tr>
+            <tr><td>Krimpen aan den IJssel</td><td>€264,577</td><td>€256,314</td><td>-3.10%</td></tr>
+            <tr><td>Oss</td><td>€251,105</td><td>€243,278</td><td>-3.10%</td></tr>
+            <tr><td>Roosendaal</td><td>€227,188</td><td>€219,812</td><td>-3.20%</td></tr>
+            <tr><td>Alphen-Chaam</td><td>€326,592</td><td>€315,979</td><td>-3.20%</td></tr>
+            <tr><td>Barneveld</td><td>€322,785</td><td>€312,523</td><td>-3.20%</td></tr>
+            <tr><td>Apeldoorn</td><td>€260,812</td><td>€252,463</td><td>-3.20%</td></tr>
+            <tr><td>Geertruidenberg</td><td>€241,810</td><td>€233,877</td><td>-3.30%</td></tr>
+            <tr><td>Borger-Odoorn</td><td>€220,050</td><td>€212,736</td><td>-3.30%</td></tr>
+            <tr><td>Steenwijkerland</td><td>€234,379</td><td>€226,754</td><td>-3.30%</td></tr>
+            <tr><td>Tytsjerksteradiel</td><td>€219,314</td><td>€212,124</td><td>-3.30%</td></tr>
+            <tr><td>Veendam</td><td>€164,079</td><td>€158,614</td><td>-3.30%</td></tr>
+            <tr><td>Leudal</td><td>€234,941</td><td>€226,970</td><td>-3.40%</td></tr>
+            <tr><td>Meerssen</td><td>€280,043</td><td>€270,447</td><td>-3.40%</td></tr>
+            <tr><td>Den Helder</td><td>€167,083</td><td>€161,280</td><td>-3.50%</td></tr>
+            <tr><td>Ooststellingwerf</td><td>€211,302</td><td>€203,943</td><td>-3.50%</td></tr>
+            <tr><td>Beek (L.)</td><td>€202,607</td><td>€195,019</td><td>-3.70%</td></tr>
+            <tr><td>Vught</td><td>€400,838</td><td>€386,133</td><td>-3.70%</td></tr>
+            <tr><td>Raalte</td><td>€264,186</td><td>€254,060</td><td>-3.80%</td></tr>
+            <tr><td>Uden</td><td>€277,233</td><td>€266,731</td><td>-3.80%</td></tr>
+            <tr><td>Mook en Middelaar</td><td>€323,623</td><td>€311,447</td><td>-3.80%</td></tr>
+            <tr><td>Lochem</td><td>€321,019</td><td>€308,386</td><td>-3.90%</td></tr>
+            <tr><td>Katwijk</td><td>€289,552</td><td>€278,192</td><td>-3.90%</td></tr>
+            <tr><td>Heusden</td><td>€303,199</td><td>€291,111</td><td>-4.00%</td></tr>
+            <tr><td>Bergen op Zoom</td><td>€227,246</td><td>€217,722</td><td>-4.20%</td></tr>
+            <tr><td>Gemert-Bakel</td><td>€284,126</td><td>€272,189</td><td>-4.20%</td></tr>
+            <tr><td>Venray</td><td>€240,955</td><td>€230,745</td><td>-4.20%</td></tr>
+            <tr><td>Zeewolde</td><td>€263,873</td><td>€252,451</td><td>-4.30%</td></tr>
+            <tr><td>Stadskanaal</td><td>€175,100</td><td>€167,385</td><td>-4.40%</td></tr>
+            <tr><td>Berkelland</td><td>€245,279</td><td>€234,473</td><td>-4.40%</td></tr>
+            <tr><td>Oude IJsselstreek</td><td>€222,740</td><td>€212,821</td><td>-4.50%</td></tr>
+            <tr><td>Ferwerderadiel</td><td>€186,130</td><td>€177,814</td><td>-4.50%</td></tr>
+            <tr><td>Hengelo (O.)</td><td>€211,691</td><td>€201,845</td><td>-4.70%</td></tr>
+            <tr><td>Oud-Beijerland</td><td>€274,942</td><td>€262,109</td><td>-4.70%</td></tr>
+            <tr><td>Hellendoorn</td><td>€253,571</td><td>€241,428</td><td>-4.80%</td></tr>
+            <tr><td>Scherpenzeel</td><td>€276,636</td><td>€263,336</td><td>-4.80%</td></tr>
+            <tr><td>Lopik</td><td>€298,172</td><td>€283,807</td><td>-4.80%</td></tr>
+            <tr><td>Binnenmaas</td><td>€266,094</td><td>€253,070</td><td>-4.90%</td></tr>
+            <tr><td>Boxtel</td><td>€297,264</td><td>€282,739</td><td>-4.90%</td></tr>
+            <tr><td>Helmond</td><td>€259,999</td><td>€247,358</td><td>-4.90%</td></tr>
+            <tr><td>Weststellingwerf</td><td>€223,294</td><td>€212,232</td><td>-5.00%</td></tr>
+            <tr><td>Montferland</td><td>€244,485</td><td>€232,170</td><td>-5.00%</td></tr>
+            <tr><td>Schouwen-Duiveland</td><td>€274,681</td><td>€260,533</td><td>-5.20%</td></tr>
+            <tr><td>Doetinchem</td><td>€239,108</td><td>€226,634</td><td>-5.20%</td></tr>
+            <tr><td>Zuidhorn</td><td>€207,919</td><td>€196,956</td><td>-5.30%</td></tr>
+            <tr><td>Zutphen</td><td>€228,866</td><td>€216,826</td><td>-5.30%</td></tr>
+            <tr><td>Best</td><td>€307,978</td><td>€291,684</td><td>-5.30%</td></tr>
+            <tr><td>Medemblik</td><td>€257,392</td><td>€243,827</td><td>-5.30%</td></tr>
+            <tr><td>Renkum</td><td>€321,342</td><td>€304,350</td><td>-5.30%</td></tr>
+            <tr><td>Nieuwkoop</td><td>€306,505</td><td>€290,224</td><td>-5.30%</td></tr>
+            <tr><td>Rijssen-Holten</td><td>€262,573</td><td>€248,153</td><td>-5.50%</td></tr>
+            <tr><td>Midden-Delfland</td><td>€333,191</td><td>€315,017</td><td>-5.50%</td></tr>
+            <tr><td>Culemborg</td><td>€256,852</td><td>€242,697</td><td>-5.50%</td></tr>
+            <tr><td>Bronckhorst</td><td>€292,280</td><td>€276,263</td><td>-5.50%</td></tr>
+            <tr><td>Cranendonck</td><td>€262,454</td><td>€247,850</td><td>-5.60%</td></tr>
+            <tr><td>Veldhoven</td><td>€306,255</td><td>€288,638</td><td>-5.80%</td></tr>
+            <tr><td>Gennep</td><td>€261,961</td><td>€246,870</td><td>-5.80%</td></tr>
+            <tr><td>Dalfsen</td><td>€276,697</td><td>€260,435</td><td>-5.90%</td></tr>
+            <tr><td>Wijchen</td><td>€271,097</td><td>€255,011</td><td>-5.90%</td></tr>
+            <tr><td>Halderberge</td><td>€274,927</td><td>€258,813</td><td>-5.90%</td></tr>
+            <tr><td>Hilvarenbeek</td><td>€349,330</td><td>€328,528</td><td>-6.00%</td></tr>
+            <tr><td>Oldebroek</td><td>€289,504</td><td>€271,842</td><td>-6.10%</td></tr>
+            <tr><td>het Bildt</td><td>€176,876</td><td>€165,624</td><td>-6.40%</td></tr>
+            <tr><td>Franekeradeel</td><td>€192,386</td><td>€179,650</td><td>-6.60%</td></tr>
+            <tr><td>Dronten</td><td>€247,425</td><td>€230,916</td><td>-6.70%</td></tr>
+            <tr><td>Utrechtse Heuvelrug</td><td>€401,140</td><td>€373,794</td><td>-6.80%</td></tr>
+            <tr><td>Woudenberg</td><td>€326,967</td><td>€304,650</td><td>-6.80%</td></tr>
+            <tr><td>Brielle</td><td>€261,407</td><td>€242,999</td><td>-7.00%</td></tr>
+            <tr><td>Montfoort</td><td>€315,114</td><td>€292,751</td><td>-7.10%</td></tr>
+            <tr><td>Lisse</td><td>€319,543</td><td>€296,778</td><td>-7.10%</td></tr>
+            <tr><td>Baarle-Nassau</td><td>€296,111</td><td>€274,709</td><td>-7.20%</td></tr>
+            <tr><td>Laren (NH.)</td><td>€685,662</td><td>€636,543</td><td>-7.20%</td></tr>
+            <tr><td>Coevorden</td><td>€228,372</td><td>€211,691</td><td>-7.30%</td></tr>
+            <tr><td>Moerdijk</td><td>€252,282</td><td>€233,959</td><td>-7.30%</td></tr>
+            <tr><td>Bloemendaal</td><td>€837,221</td><td>€775,770</td><td>-7.30%</td></tr>
+            <tr><td>Waddinxveen</td><td>€250,856</td><td>€232,089</td><td>-7.50%</td></tr>
+            <tr><td>Tholen</td><td>€198,848</td><td>€183,833</td><td>-7.60%</td></tr>
+            <tr><td>Twenterand</td><td>€239,847</td><td>€221,020</td><td>-7.80%</td></tr>
+            <tr><td>Grootegast</td><td>€217,800</td><td>€200,621</td><td>-7.90%</td></tr>
+            <tr><td>Borne</td><td>€252,368</td><td>€232,211</td><td>-8.00%</td></tr>
+            <tr><td>Veenendaal</td><td>€271,216</td><td>€249,434</td><td>-8.00%</td></tr>
+            <tr><td>Loon op Zand</td><td>€294,059</td><td>€270,398</td><td>-8.00%</td></tr>
+            <tr><td>Zederik</td><td>€291,299</td><td>€267,757</td><td>-8.10%</td></tr>
+            <tr><td>Westland</td><td>€292,810</td><td>€268,966</td><td>-8.10%</td></tr>
+            <tr><td>Putten</td><td>€390,163</td><td>€358,199</td><td>-8.20%</td></tr>
+            <tr><td>Castricum</td><td>€332,133</td><td>€304,792</td><td>-8.20%</td></tr>
+            <tr><td>Delfzijl</td><td>€153,332</td><td>€140,643</td><td>-8.30%</td></tr>
+            <tr><td>Sliedrecht</td><td>€238,060</td><td>€217,970</td><td>-8.40%</td></tr>
+            <tr><td>Voorst</td><td>€330,114</td><td>€301,603</td><td>-8.60%</td></tr>
+            <tr><td>Nederweert</td><td>€280,808</td><td>€255,688</td><td>-8.90%</td></tr>
+            <tr><td>Leusden</td><td>€319,497</td><td>€290,726</td><td>-9.00%</td></tr>
+            <tr><td>Tiel</td><td>€247,479</td><td>€225,180</td><td>-9.00%</td></tr>
+            <tr><td>Dongen</td><td>€273,555</td><td>€248,826</td><td>-9.00%</td></tr>
+            <tr><td>Borsele</td><td>€228,353</td><td>€207,747</td><td>-9.00%</td></tr>
+            <tr><td>Zaltbommel</td><td>€299,077</td><td>€272,155</td><td>-9.00%</td></tr>
+            <tr><td>Bergeijk</td><td>€330,046</td><td>€299,913</td><td>-9.10%</td></tr>
+            <tr><td>Drimmelen</td><td>€301,120</td><td>€273,581</td><td>-9.10%</td></tr>
+            <tr><td>Neder-Betuwe</td><td>€286,242</td><td>€259,830</td><td>-9.20%</td></tr>
+            <tr><td>Eemsmond</td><td>€185,581</td><td>€168,314</td><td>-9.30%</td></tr>
+            <tr><td>Koggenland</td><td>€267,012</td><td>€242,181</td><td>-9.30%</td></tr>
+            <tr><td>Oisterwijk</td><td>€406,129</td><td>€368,484</td><td>-9.30%</td></tr>
+            <tr><td>Woudrichem</td><td>€285,810</td><td>€258,612</td><td>-9.50%</td></tr>
+            <tr><td>Huizen</td><td>€386,312</td><td>€349,587</td><td>-9.50%</td></tr>
+            <tr><td>Goirle</td><td>€320,266</td><td>€289,077</td><td>-9.70%</td></tr>
+            <tr><td>Rozendaal</td><td>€467,602</td><td>€421,245</td><td>-9.90%</td></tr>
+            <tr><td>Maassluis</td><td>€222,722</td><td>€200,659</td><td>-9.90%</td></tr>
+            <tr><td>Waalwijk</td><td>€279,004</td><td>€251,001</td><td>-10.00%</td></tr>
+            <tr><td>Goes</td><td>€262,673</td><td>€236,388</td><td>-10.00%</td></tr>
+            <tr><td>Aa en Hunze</td><td>€269,367</td><td>€241,866</td><td>-10.20%</td></tr>
+            <tr><td>De Wolden</td><td>€272,623</td><td>€244,587</td><td>-10.30%</td></tr>
+            <tr><td>Heeze-Leende</td><td>€356,751</td><td>€319,959</td><td>-10.30%</td></tr>
+            <tr><td>Gorinchem</td><td>€247,243</td><td>€221,038</td><td>-10.60%</td></tr>
+            <tr><td>Grave</td><td>€254,210</td><td>€227,373</td><td>-10.60%</td></tr>
+            <tr><td>Maasdriel</td><td>€313,045</td><td>€279,835</td><td>-10.60%</td></tr>
+            <tr><td>Deurne</td><td>€322,813</td><td>€288,606</td><td>-10.60%</td></tr>
+            <tr><td>Eersel</td><td>€340,647</td><td>€303,937</td><td>-10.80%</td></tr>
+            <tr><td>Bladel</td><td>€306,082</td><td>€272,325</td><td>-11.00%</td></tr>
+            <tr><td>Zwijndrecht</td><td>€224,950</td><td>€199,748</td><td>-11.20%</td></tr>
+            <tr><td>Druten</td><td>€283,611</td><td>€251,976</td><td>-11.20%</td></tr>
+            <tr><td>Zundert</td><td>€299,346</td><td>€265,591</td><td>-11.30%</td></tr>
+            <tr><td>Oosterhout</td><td>€287,381</td><td>€254,946</td><td>-11.30%</td></tr>
+            <tr><td>Oirschot</td><td>€346,425</td><td>€307,055</td><td>-11.40%</td></tr>
+            <tr><td>Valkenswaard</td><td>€301,943</td><td>€266,796</td><td>-11.60%</td></tr>
+            <tr><td>Westvoorne</td><td>€400,307</td><td>€353,831</td><td>-11.60%</td></tr>
+            <tr><td>Loppersum</td><td>€199,747</td><td>€175,980</td><td>-11.90%</td></tr>
+            <tr><td>Boxmeer</td><td>€277,639</td><td>€243,723</td><td>-12.20%</td></tr>
+            <tr><td>Son en Breugel</td><td>€371,286</td><td>€325,974</td><td>-12.20%</td></tr>
+            <tr><td>Kollumerland en Nieuwkruisland</td><td>€204,648</td><td>€179,766</td><td>-12.20%</td></tr>
+            <tr><td>Ede</td><td>€283,215</td><td>€247,766</td><td>-12.50%</td></tr>
+            <tr><td>Heerde</td><td>€317,849</td><td>€277,731</td><td>-12.60%</td></tr>
+            <tr><td>Sint Anthonis</td><td>€306,204</td><td>€267,471</td><td>-12.60%</td></tr>
+            <tr><td>Haarlemmerliede en Spaarnwoude</td><td>€336,029</td><td>€292,931</td><td>-12.80%</td></tr>
+            <tr><td>Buren</td><td>€342,651</td><td>€298,471</td><td>-12.90%</td></tr>
+            <tr><td>Westerveld</td><td>€282,334</td><td>€245,515</td><td>-13.00%</td></tr>
+            <tr><td>Zeist</td><td>€451,935</td><td>€393,001</td><td>-13.00%</td></tr>
+            <tr><td>Cromstrijen</td><td>€291,193</td><td>€252,515</td><td>-13.30%</td></tr>
+            <tr><td>Asten</td><td>€337,319</td><td>€292,594</td><td>-13.30%</td></tr>
+            <tr><td>Geldermalsen</td><td>€329,376</td><td>€285,022</td><td>-13.50%</td></tr>
+            <tr><td>Dinkelland</td><td>€291,662</td><td>€252,296</td><td>-13.50%</td></tr>
+            <tr><td>Cuijk</td><td>€255,307</td><td>€220,711</td><td>-13.60%</td></tr>
+            <tr><td>Boekel</td><td>€306,493</td><td>€264,489</td><td>-13.70%</td></tr>
+            <tr><td>Achtkarspelen</td><td>€214,001</td><td>€184,383</td><td>-13.80%</td></tr>
+            <tr><td>Heumen</td><td>€349,173</td><td>€301,001</td><td>-13.80%</td></tr>
+            <tr><td>Reusel-De Mierden</td><td>€316,977</td><td>€271,555</td><td>-14.30%</td></tr>
+            <tr><td>Wijdemeren</td><td>€446,235</td><td>€381,639</td><td>-14.50%</td></tr>
+            <tr><td>De Marne</td><td>€177,845</td><td>€152,106</td><td>-14.50%</td></tr>
+            <tr><td>Bergen (L.)</td><td>€259,422</td><td>€221,542</td><td>-14.60%</td></tr>
+            <tr><td>Noordwijkerhout</td><td>€306,259</td><td>€261,200</td><td>-14.70%</td></tr>
+            <tr><td>Sint-Michielsgestel</td><td>€387,020</td><td>€329,663</td><td>-14.80%</td></tr>
+            <tr><td>Korendijk</td><td>€297,189</td><td>€252,434</td><td>-15.10%</td></tr>
+            <tr><td>Laarbeek</td><td>€318,768</td><td>€269,783</td><td>-15.40%</td></tr>
+            <tr><td>Bernheze</td><td>€346,803</td><td>€292,958</td><td>-15.50%</td></tr>
+            <tr><td>Werkendam</td><td>€298,882</td><td>€250,354</td><td>-16.20%</td></tr>
+            <tr><td>Oudewater</td><td>€351,215</td><td>€293,983</td><td>-16.30%</td></tr>
+            <tr><td>Edam-Volendam</td><td>€337,129</td><td>€281,721</td><td>-16.40%</td></tr>
+            <tr><td>Giessenlanden</td><td>€351,334</td><td>€293,859</td><td>-16.40%</td></tr>
+            <tr><td>West Maas en Waal</td><td>€311,274</td><td>€258,946</td><td>-16.80%</td></tr>
+            <tr><td>Landerd</td><td>€357,090</td><td>€293,877</td><td>-17.70%</td></tr>
+            <tr><td>Haaren</td><td>€422,116</td><td>€345,336</td><td>-18.20%</td></tr>
+            <tr><td>Blaricum</td><td>€764,548</td><td>€619,585</td><td>-19.00%</td></tr>
+            <tr><td>Brummen</td><td>€332,779</td><td>€268,532</td><td>-19.30%</td></tr>
+            <tr><td>Mill en Sint Hubert</td><td>€325,891</td><td>€262,282</td><td>-19.50%</td></tr>
+            <tr><td>Waalre</td><td>€447,646</td><td>€352,345</td><td>-21.30%</td></tr>
+            <tr><td>Someren</td><td>€337,424</td><td>€264,060</td><td>-21.70%</td></tr>
+            <tr><td>Bellingwedde</td><td>€216,605</td><td>€166,742</td><td>-23.00%</td></tr>
+            <tr><td>Neerijnen</td><td>€363,174</td><td>€264,874</td><td>-27.10%</td></tr>
+            <tr><td>Vlieland</td><td>€369,313</td><td>€259,429</td><td>-29.80%</td></tr>
+            </tbody></table>
+        </div>
+
+
+
+        <div class="clients-section">
+            <div class="container">
+                <h3>House Price Trends</h3>
+                <p>
+                    If you want to share some feedback, please contact us via our <a href="https://www.facebook.com/housepricestrend/"> facebook group</a>.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

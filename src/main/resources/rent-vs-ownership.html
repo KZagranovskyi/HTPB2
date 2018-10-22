@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119958037-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119958037-1');
+    </script>
+    <title>House price trends in the Netherlands. Rent vs buy house personal online calculator with visualizaton.
+    </title>
+    <meta name="description=" content="Discover if it is better to buy or rent a house on Dutch housing market.
+Calculation has informative visualization and takes into account house price growth, taxation, interest rate, buying costs and etc."/>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" type="text/css" href="scss/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="dist/theme.min.css" />
+
+    <!-- javascript -->
+    <script src="dist/theme.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <style>
+        input[type=number], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            width: 100%;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        div {
+            border-radius: 5px;
+        }
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        tr:hover {background-color: #f5f5f5;}
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: #f2fff3;
+        }
+    </style>
+    <script type="text/javascript">
+        var header = ["Year","Bank Interest","Property tax", "Property Price Growth", 'Buying costs', 'Expected Profits', 'Expected Expenses'];
+        var inp_years = 30;
+        var inp_rate = 0.02;
+        var inp_price = 250000;
+        var inp_price_growth_rate = 1.035;
+        var data;
+        var materialChart;
+        var materialOptions = {
+            width: 700,
+            height: 600,
+            isStacked: true,
+            chart: {
+                title: 'Mortgage balance',
+                subtitle: 'shows the profits and losses for each year'
+            },
+            series: {
+                2: {color: '#639964'},
+                0: {color: '#ed574b'},
+                1: {color: '#c93510'},
+                3: {color: '#e24f5b'},
+                4: {color: '#46a067'},
+                5: {color: '#c44b58'},
+            },
+            axes: {
+                y: {
+                    distance: {label: 'parsecs'}, // Left y-axis.
+                    brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
+                },
+                x: {
+                    0: {side: 'bottom', label: 'Profits and Loss'} // Top x-axis.
+                }
+            },
+            bar: {
+                groupWidth: 14
+            },
+            colors: ['red', 'green', 'blue'],
+            bars: 'horizontal'
+        };
+        var compareChartOptions = {
+            height: 800,
+
+            chart: {
+                title: 'Rent vs Ownership balance comparison',
+                subtitle: 'show the difference in cash'
+            },
+            orientation: 'vertical',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            },
+            hAxis: {
+                title: 'Profits and Loss',
+                format:'€#'
+            },
+            vAxis: {
+                baseline: 0,
+                title: 'Years',
+                direction: -1,
+                gridlines: {
+                    count : 10
+                }
+            }
+        };
+        var arrayData = calculateAnnuityPayments(inp_price,inp_rate,inp_years, inp_price_growth_rate,0,0,0);
+        google.charts.load('current', {'packages':['corechart', 'bar']});
+        $.get("https://raw.githubusercontent.com/KZagranovskyi/HT2/master/BalanceChartData.csv%20-%20Sheet1.csv", function (csvString) {
+            //arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+        });
+
+        google.charts.setOnLoadCallback(drawStuff);
+        function calculateColSum(selectedYear ,data, index) {
+            var sum = 0;
+            for (var i = 1; i <= selectedYear; i++) {
+                sum = sum + data[i][index];
+            }
+            return Math.round(sum);
+        }
+        function calculateAnnuityPayments(price , rate, years, growthRate, downpayment, expectedProfits, expectedExpenses) {
+            var payments = [];
+            payments.push(header);
+            var monthlyRate = rate / 12;
+            var months = years * 12;
+            var buyingCosts = price * 0.06; // 0.06 approximal number to investigate
+            var monthlyPayment = (price - downpayment) * monthlyRate / ( 1 - Math.pow(1 + monthlyRate,-months));
+            var debt = price - downpayment;
+            var newPrice = price;
+            for (var year = 0; year < years; year++) {
+                var yearInterest = 0;
+                var priceGrowth = newPrice;
+                newPrice = newPrice * growthRate;
+                var taxes =  - newPrice * 0.007 * 0.4; // 0.7 const and 0.4 income tax rate
+                priceGrowth = newPrice - priceGrowth;
+                for (var month = 0; month < 12; month++){
+                    var monthInterest = debt * monthlyRate;
+                    yearInterest = yearInterest + monthInterest;
+                    debt = debt - (monthlyPayment - monthInterest);
+                }
+                var payment = [year + 1, Math.round(-yearInterest), Math.round(taxes), Math.round(priceGrowth), -buyingCosts, expectedProfits, -expectedExpenses ];
+                buyingCosts = 0; // reset value as it is used once
+                payments.push(payment);
+            }
+            return payments;
+        }
+        function createTable(tableData) {
+            var table = document.createElement('table');
+            table.style.width= "90%";
+            var tableBody = document.createElement('tbody');
+            var row = document.createElement('tr');
+            tableData[0].forEach(function(cellData) {
+                var cell = document.createElement('th');
+                cell.appendChild(document.createTextNode(cellData));
+                row.appendChild(cell);
+            });
+            tableBody.appendChild(row);
+            tableData.filter(d => d[0] != "Year").forEach(function(rowData) {
+                var row = document.createElement('tr');
+                rowData.forEach(function(cellData, index) {
+                    var value = cellData;
+                    if (index > 0) {
+                        value = "\u20ac " + value;
+                    }
+                    var cell = document.createElement('td');
+                    cell.appendChild(document.createTextNode(value));
+                    row.appendChild(cell);
+                });
+                tableBody.appendChild(row);
+            });
+            table.appendChild(tableBody);
+            $('#detailed-table').html(table);
+        }
+        function selectHandler() {
+            var selection = materialChart.getSelection();
+            if (selection.length !== 0) {
+                var selectedYear = selection[0].row +1;
+                var totalInterestExpenses = calculateColSum(selectedYear, arrayData, 1);
+                var housePriceProfit = calculateColSum(selectedYear, arrayData, 3);
+                var taxes = calculateColSum(selectedYear, arrayData, 2);
+                var buyingCosts = calculateColSum(selectedYear, arrayData, 4);
+                var expectedProfits = calculateColSum(selectedYear, arrayData, 5);
+                var expectedExpenses = calculateColSum(selectedYear, arrayData, 6);
+                var totalBalance = totalInterestExpenses + housePriceProfit + taxes + buyingCosts + expectedProfits + expectedExpenses;
+                $('#text #selected-description').html('Here are the details about total property ownership for first ' + selectedYear + ' years: ');
+                $('#text #selected-int-rate').html('Mortgage interest: ' + totalInterestExpenses + "&euro;");
+                $('#text #selected-service-costs').html('Property tax: ' + taxes + "&euro;");
+                $('#text #selected-house-price').html('House price profit: ' + housePriceProfit + "&euro;");
+                $('#text #selected-total').html('Total balance: ' + totalBalance + "&euro;");
+            }
+        }
+        function drawMaterialChart() {
+            var chartDiv = document.getElementById('chart_div');
+            materialChart = new google.charts.Bar(chartDiv);
+            materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
+            google.visualization.events.addListener(materialChart, 'select', selectHandler);
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var compData = new google.visualization.arrayToDataTable(prepareComparisonData(data));
+            chart.draw(compData, compareChartOptions);
+        }
+        function prepareComparisonData(data){
+            var payments = [];
+            var header = ["Year","Ownership Balance","Rent Balance"];
+            payments.push(header);
+            payments.push([0, calculateColSum(2, arrayData, 4), 0]);
+            var rentCosts = 0;
+            var curYearRent = 11000;
+            for (var year = 1; year < arrayData.length; year++) {
+                var totalInterestExpenses = calculateColSum(year, arrayData, 1);
+                var housePriceProfit = calculateColSum(year, arrayData, 3);
+                var taxes = calculateColSum(year, arrayData, 2);
+                var buyingCosts = calculateColSum(year, arrayData, 4);
+                var expectedProfits = calculateColSum(year, arrayData, 5);
+                var expectedExpenses = calculateColSum(year, arrayData, 6);
+                var totalBalance = totalInterestExpenses + housePriceProfit + taxes + buyingCosts + expectedProfits + expectedExpenses;
+                curYearRent = curYearRent * 1.01;
+                rentCosts = rentCosts - curYearRent;
+                var payment = [year ,totalBalance, rentCosts ];
+                payments.push(payment);
+            }
+            return payments;
+        }
+        function drawStuff() {
+            data = new google.visualization.arrayToDataTable(arrayData);
+            drawMaterialChart();
+            createTable(arrayData);
+            $('#contactForm').on('submit', function () {
+                var price = $('#price').val();
+                var rate = $('#rate').val() / 100;
+                var term = $('#term').val();
+                // optional
+                var growthRate = 1 + $('#growthRate').val() / 100;
+                var downpayment = $('#downpayment').val();
+                var expectedExpenses = parseInt($('#expectedExpenses').val());
+                var expectedProfits = parseInt($('#expectedProfits').val());
+                arrayData = calculateAnnuityPayments(price,rate,term, growthRate, downpayment, expectedProfits, expectedExpenses);
+                drawStuff();
+                return false;
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="navbar navbar-dark navbar-expand-lg" role="banner">
+    <div class="container">
+        <a class="navbar-brand" href="index2.html">
+            <img src="images/logo-light.png" class="mr-2 img-fluid" />
+            Dutch house price trends
+        </a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a href="rent-vs-ownership.html" class="nav-link" >Renting vs Owning</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="buy-to-let-in-netherlands.html" class="nav-link" >Buy-to-let</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="amsterdam-netherlands-airbnb-rules.html" class="nav-link" >Short-term rent(Airbnb)</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="latest-news.html" class="nav-link" >Housing news</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="features-tabs-section" style="margin-top: 100px;">
+
+        <div class="header">
+            <h3>Compare expenses for owning the house and renting</h3>
+            <p>Calculator visualizes the costs and helps to understand the distribution of expenses</p>
+        </div>
+
+        <div  class="container">
+            <form id="contactForm" style="font-family: Roboto;">
+                <br>
+
+                <br>
+                Home Value(€):<br> <input type="number" id="price" value="250000" min="50000" max="5000000" /><br>
+                Mortgage interest rate(%):<br><input type="number" id="rate" value="2" min="0.01" max="6" step="0.01"/><br>
+                Loan Term(years):<br><input type="number" id="term" value="30" min="4" max="40" placeholder="Number of years.." /> <br>
+                <fieldset style="color:#9a9999">
+                    <legend>Optional</legend>
+                    Expected house price growth rate(%):<br><input type="number" id="growthRate" value="2.5" min="-10" max="10" step="0.01"/><br>
+                    Downpayment(€):<br><input type="number" id="downpayment" value="0" min="0" max="1000000" /><br>
+                    Expected extra year expenses(ground leasehold, etc):<br><input type="number" id="expectedExpenses" value="0" min="0" max="1000000" step="any"/><br>
+                    Expected extra year profits(airbnb, room rent out, etc):<br><input type="number" id="expectedProfits" value="0" min="0" max="1000000" step="any"/><br>
+                </fieldset>
+                <br>
+                <br> <input class="submit" type="submit" value="Calculate" style="background-color: #4CAF50;  border: none;  color: white;    padding: 15px 32px;   text-align:center;  text-decoration: none;  display: inline-block;  border-radius: 3px;  font-size: 16px; " />
+            </form>
+        </div>
+        <br><br><br><br>
+
+        <div class="row">
+            <div class="col-md-8" style="padding-left: 80px;">
+            <b>How to Read the Charts</b> This is the visualization of expenses and profits of owning the house with mortgage.
+                Click on one of bars
+                in the chart area to see the detailed information.
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6" id="chart_div" style="padding-left: 80px; padding-top: 40px;"></div>
+
+            <div class="col-md-6" id="text" style=" font-family: Roboto;     padding-left: 90px; padding-top: 40px;">
+                    <p id="selected-description">In average, people live around 7-8 years in the same house. Click on one of years in the chart for more detailed information</p>
+                    <p id="selected-int-rate"></p>
+                    <p id="selected-service-costs"></p>
+                    <p id="selected-house-price"></p>
+                    <p id="selected-total"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="curve_chart" class="col-md-6" style="width: 800px; height: 800px; "></div>
+            <div class="col-md-4"  style=" font-family: Roboto;   padding-top: 200px ">
+                Owning a home is a dream for many people.
+                But as the housing market continues to move up and down, does it make more financial sense to <b>rent a house or get a mortgage</b>?
+                Chart shows the financial balance for both cases in Netherlands for inputs above.
+
+            </div>
+        </div>
+
+        <div class="row" style="width: 100%; font-family: Roboto; margin-left: 30px; padding-top: 60px;  padding-left:60px; text-align:center">
+            <div id="detailed-table"></div>
+        </div>
+
+</div>
+
+
+
+<div class="clients-section">
+    <div class="container">
+        <h3>House Price Trends</h3>
+        <p>
+            If you want to share some feedback, please contact us via our <a href="https://www.facebook.com/housepricestrend/"> facebook group</a>.
+        </p>
+    </div>
+</div>
+</body>
+</html>

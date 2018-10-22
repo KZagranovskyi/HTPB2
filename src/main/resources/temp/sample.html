@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Effects - Effect demo</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <style>
+        .toggler { width: 1000px; height: 200px; position: relative; }
+        #button { padding: .5em 1em; text-decoration: none; }
+        #effect { width: 200px; padding: 0.4em; position: relative; }
+
+        .ui-effects-transfer { border: 2px dotted gray; }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            // run the currently selected effect
+            function runEffect() {
+                // get effect type from
+                var selectedEffect = "highlight";
+
+                // Run the effect
+                $( "#effect" ).effect( selectedEffect, {color:"#e1fbd6"}, 500, callback );
+            };
+
+            // Callback function to bring a hidden box back
+            function callback() {
+                // setTimeout(function() {
+                //     $( "#effect" ).removeAttr( "style" ).hide().fadeIn();
+                // }, 1000 );
+            };
+
+            // Set effect from select menu value
+            $( "#button" ).on( "click", function() {
+                runEffect();
+                return false;
+            });
+        } );
+    </script>
+</head>
+<body>
+
+<div >
+    <div id="effect" >
+        <span style="font-size: 18px; font-weight: 600; font-family: sans-serif;">
+            € 295,344.50
+        </span>
+        <span    style=" padding-left: 3px; font-weight: 500; color: #093; font-family: sans-serif;">
+            +44.50
+        </span>
+    </div>
+</div>
+
+
+
+<button id="button" class="ui-state-default ui-corner-all">Run Effect</button>
+
+
+</body>
+</html>
