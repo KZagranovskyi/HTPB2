@@ -53,7 +53,7 @@ class UserRegistryActor extends Actor with ActorLogging {
       sender() ! Users(users.toSeq)
     case LivePriceRequest(user) =>
       users += user
-      sender() ! ActionPerformed(s"295750")
+      sender() ! ActionPerformed(calculateLivePrice(user).toString)
     case GetUser(name) =>
       sender() ! users.find(_.city == name)
     case DeleteUser(name) =>
@@ -64,9 +64,9 @@ class UserRegistryActor extends Actor with ActorLogging {
   def calculateLivePrice(request: HousePriceRequest): Double = {
     val curentPriceIndex = priceHistory.last.priceIndex
 
-    var priceIndex : Option[Double] = null
+    var priceIndex : Option[Double] = None
     for (p <- priceHistory if priceIndex.isEmpty ) {
-      if (request.year > p.date) { //TOOD
+      if (request.year > p.date) {
         priceIndex = priceIndex
       }
     }

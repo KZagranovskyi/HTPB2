@@ -206,6 +206,17 @@ input[type="range"]:focus + .rangeslider .rangeslider__handle {
         </ul>
       </div>
     </div>
+
+    <div>
+      <div id="effect" >
+        <span style="font-size: 18px; font-weight: 600; font-family: sans-serif;">
+            €<span id="housePrice"/>
+        </span>
+        <span    style=" padding-left: 3px; font-weight: 500; color: #093; font-family: sans-serif;">
+            + €<span id="extra"/>
+        </span>
+      </div>
+    </div>
   </div>
 
   <div class="slider-hero" id="slider">
@@ -557,6 +568,38 @@ input[type="range"]:focus + .rangeslider .rangeslider__handle {
   </div>
 
   <script type="text/javascript">
+      // get cookies
+          var name = "input=";
+          var input = "";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i < ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  input =  c.substring(name.length, c.length).split("_");
+                  var data = "{\"city\":\""+input[0]+"\", \"buyPrice\":"+input[1]+", \"year\":"+ input[2] +" }";
+                  $.ajax({
+                      type: "POST",
+
+                      url: "/users",
+                      data: data,
+                      success: function(data){
+                          $('#housePrice').text(input[1]);
+                          $('#extra').text(data.livePrice-input[1]);
+
+                      },
+                      contentType : "application/json"
+
+                  });
+              }
+          }
+
+
+
+
       $('#subscriptionForm').submit(function(e) {
           $.ajax({
               url: 'http://87.210.78.3:8080/test',

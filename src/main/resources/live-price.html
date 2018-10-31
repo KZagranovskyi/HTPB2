@@ -90,7 +90,16 @@ Calculation has informative visualization and takes into account house price gro
     </style>
     <script type="text/javascript">
         function sendData() {
-            var data = "{\"city\":\""+$("#city")[0].value+"\", \"buyPrice\":"+$("#price")[0].value+", \"year\":"+$("#year")[0].value.split("-").join("") +" }";
+            var city = $("#city")[0].value;
+            var price = $("#price")[0].value;
+            var year = $("#year")[0].value.split("-").join("");
+
+            var data = "{\"city\":\""+city+"\", \"buyPrice\":"+price+", \"year\":"+ year +" }";
+
+            var d = new Date();
+            d.setTime(d.getTime() + (30*24*60*60*1000));
+            var expires = ";expires=" + d.toGMTString();
+            document.cookie = "input=" + city + "_" + price + "_" + year + expires + ";path=/";
 
             $.ajax({
                 type: "POST",
@@ -106,6 +115,46 @@ Calculation has informative visualization and takes into account house price gro
             });
             return false;
         }
+
+        function setCookie(cname,cvalue,exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires=" + d.toGMTString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var city=getCookie("city");
+            if (city != "") {
+                populate(city);
+            } else {
+                city = prompt("Please enter your name:","");
+                if (city != "" && city != null) {
+                    setCookie("username", user, 30);
+                }
+            }
+        }
+
+        function populate(city, buyPrice, year) {
+
+        }
+
 
     </script>
 </head>
