@@ -4,7 +4,6 @@ package com.example
 import java.nio.file.Paths
 
 import akka.actor.{Actor, ActorLogging, Props}
-import akka.http.scaladsl.model.headers.Date
 import akka.stream.ActorMaterializer
 import akka.stream.javadsl.Sink
 import akka.stream.scaladsl.{FileIO, Framing}
@@ -17,7 +16,7 @@ final case class HousePriceRequest(city: String, buyPrice: Int, year: Int)
 
 final case class Users(users: Seq[HousePriceRequest])
 
-case class HousePriceQuote(date: Int, priceIndex: Int)
+case class HousePriceQuote(date: Int, priceIndex: Double)
 
 //#user-case-classes
 
@@ -40,7 +39,9 @@ class UserRegistryActor extends Actor with ActorLogging {
 
   import UserRegistryActor._
 
-  val priceHistory: ListBuffer[HousePriceQuote] = ListBuffer[HousePriceQuote]()
+  val priceHistory: Map[String,ListBuffer[HousePriceQuote]] = Map(
+    "A" -> ListBuffer[HousePriceQuote](),
+    "U" -> ListBuffer[HousePriceQuote]())
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
 
@@ -62,15 +63,15 @@ class UserRegistryActor extends Actor with ActorLogging {
   }
 
   def calculateLivePrice(request: HousePriceRequest): Double = {
-    val curentPriceIndex = priceHistory.last.priceIndex
+    val curentPriceIndex = priceHistory(request.city).last.priceIndex
 
-    var priceIndex : Option[Double] = None
-    for (p <- priceHistory if priceIndex.isEmpty ) {
-      if (request.year > p.date) {
-        priceIndex = priceIndex
+    var priceIndex: Option[Double] = None
+    for (p <- priceHistory(request.city) if priceIndex.isEmpty) {
+      if (request.year < p.date) {
+        priceIndex = Some(p.priceIndex)
       }
     }
-    if (priceIndex.isEmpty){
+    if (priceIndex.isEmpty) {
       priceIndex = Some(1.0)
     }
     val livePrice = request.buyPrice * (curentPriceIndex / priceIndex.get)
@@ -80,11 +81,12 @@ class UserRegistryActor extends Actor with ActorLogging {
 
   def populateHistoricalPrices(): Unit = {
     val sink = Sink.foreach[String](x => {
-      val Array(date, price) = x.split(",").map(_.trim.toInt)
-      priceHistory.append(HousePriceQuote(date, price))
+      val Array(date, p1, p2) = x.split(",").map(_.trim)
+      priceHistory("A").append(HousePriceQuote(date.toInt, p1.toDouble))
+      priceHistory("U").append(HousePriceQuote(date.toInt, p2.toDouble))
     })
 
-    FileIO.fromPath(Paths.get("/Users/mac/Downloads/HPTB2/src/main/scala/csv/Amsterdam.csv"))
+    FileIO.fromPath(Paths.get("C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"))
       .via(Framing.delimiter(ByteString("\n"), 256, true).map(_.utf8String))
       .to(sink)
       .run()
