@@ -79,6 +79,26 @@ class UserRegistryActor extends Actor with ActorLogging {
     livePrice
   }
 
+  def calculateLivePriceHistory(request: HousePriceRequest): ListBuffer[HousePriceQuote] = {
+    val priceList = ListBuffer.empty[HousePriceQuote]
+
+    var priceIndex: Option[Double] = None
+    for (p <- priceHistory(request.city) if priceIndex.isEmpty) {
+      if (request.year < p.date) {
+        priceIndex = Some(p.priceIndex)
+      }
+    }
+
+    for (p <- priceHistory(request.city)) {
+      if (request.year > p.date) {
+        val livePrice = request.buyPrice * (p.priceIndex / priceIndex.get)
+        priceList.append(HousePriceQuote(request.year, livePrice))
+      }
+    }
+
+    priceList
+  }
+
   def populateHistoricalPrices(): Unit = {
     val sink = Sink.foreach[String](x => {
       val Array(date, p1, p2) = x.split(",").map(_.trim)
