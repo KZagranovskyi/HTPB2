@@ -95,5 +95,25 @@ trait UserRoutes extends JsonSupport {
             }
           )
           //#users-get-delete
+        } ~
+        pathPrefix("get-history") {
+          concat(
+            //#users-get-delete
+            pathEnd {
+              concat(
+                post {
+                  entity(as[HousePriceRequest]) { request =>
+                    val data: Future[HousePriceHistory] =
+                      (userRegistryActor ? LivePriceHistoryRequest(request)).mapTo[HousePriceHistory]
+                      onSuccess(data) { performed =>
+                        complete((StatusCodes.Created,performed))
+                      }
+
+                  }
+                }
+              )
+            }
+          )
+          //#users-get-delete
         }
 }
