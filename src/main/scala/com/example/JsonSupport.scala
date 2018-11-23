@@ -18,5 +18,7 @@ trait JsonSupport extends SprayJsonSupport {
   implicit val housePriceQuoteJsonFormat = jsonFormat2(HousePriceQuote)
   implicit val housePriceHistoryJsonFormat = jsonFormat1(HousePriceHistory)
 
+  implicit val housePriceNotificationRequestJsonFormat = jsonFormat4(HousePriceNotificationRequest)
+
 }
 //#json-support

@@ -1,6 +1,7 @@
 package com.example
 
 //#user-registry-actor
+import java.io.{File, PrintWriter}
 import java.nio.file.Paths
 
 import akka.actor.{Actor, ActorLogging, Props}
@@ -8,7 +9,6 @@ import akka.stream.ActorMaterializer
 import akka.stream.javadsl.Sink
 import akka.stream.scaladsl.{FileIO, Framing}
 import akka.util.ByteString
-import com.example.UserRegistryActor.HousePriceQuote
 
 import scala.collection.mutable.ListBuffer
 
@@ -16,6 +16,8 @@ import scala.collection.mutable.ListBuffer
 final case class HousePriceRequest(city: String, buyPrice: Int, year: Int)
 
 final case class Users(users: Seq[HousePriceRequest])
+
+final case class HousePriceNotificationRequest(city: String, buyPrice: Int, year: Int, email : String)
 
 
 
@@ -39,7 +41,11 @@ object UserRegistryActor {
 
   final case class DeleteUser(name: String)
 
+  final case class AddEmailNotification(request: HousePriceNotificationRequest)
+
   def props: Props = Props[UserRegistryActor]
+
+  final case class AddEmail(request: HousePriceNotificationRequest)
 }
 
 class UserRegistryActor extends Actor with ActorLogging {
@@ -69,6 +75,15 @@ class UserRegistryActor extends Actor with ActorLogging {
     case DeleteUser(name) =>
       requestsSet.find(_.city == name) foreach { user => requestsSet -= user }
       sender() ! ActionPerformed(s"User ${name} deleted.")
+    case AddEmailNotification(request) =>
+      addEmailNotification(request)
+  }
+
+  def addEmailNotification(r: HousePriceNotificationRequest): Unit ={
+    val writer = new PrintWriter(new File("Emails.txt"))
+    writer.write(r.email + "," + r.city + "," + r.year + "," + r.buyPrice)
+    writer.close()
+
   }
 
   def calculateLivePrice(request: HousePriceRequest): Double = {
@@ -115,7 +130,7 @@ class UserRegistryActor extends Actor with ActorLogging {
       priceHistory("U").append(HousePriceQuote(date.toInt, p2.toDouble))
     })
 
-    FileIO.fromPath(Paths.get("/Users/mac/Downloads/HPTB2/src/main/scala/csv/Amsterdam.csv"))
+    FileIO.fromPath(Paths.get("C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"))
       .via(Framing.delimiter(ByteString("\n"), 256, true).map(_.utf8String))
       .to(sink)
       .run()

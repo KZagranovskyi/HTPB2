@@ -94,11 +94,9 @@ trait UserRoutes extends JsonSupport {
               )
             }
           )
-          //#users-get-delete
         } ~
         pathPrefix("get-history") {
           concat(
-            //#users-get-delete
             pathEnd {
               concat(
                 post {
@@ -114,6 +112,22 @@ trait UserRoutes extends JsonSupport {
               )
             }
           )
-          //#users-get-delete
+        }   ~
+        pathPrefix("add-notification") {
+          concat(
+            pathEnd {
+              concat(
+                post {
+                  entity(as[HousePriceNotificationRequest]) { request =>
+
+                      userRegistryActor ! AddEmailNotification(request)
+                    complete()
+
+
+                  }
+                }
+              )
+            }
+          )
         }
 }
