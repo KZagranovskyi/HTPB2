@@ -83,7 +83,6 @@ class UserRegistryActor extends Actor with ActorLogging {
     val writer = new PrintWriter(new File("Emails.txt"))
     writer.write(r.email + "," + r.city + "," + r.year + "," + r.buyPrice)
     writer.close()
-
   }
 
   def calculateLivePrice(request: HousePriceRequest): Double = {

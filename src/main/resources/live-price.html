@@ -163,7 +163,7 @@ Calculation has informative visualization and takes into account house price gro
         function checkCookie() {
             var city=getCookie("city");
             if (city != "") {
-                populate(city);
+                // populate(city);
             } else {
                 city = prompt("Please enter your name:","");
                 if (city != "" && city != null) {
@@ -172,8 +172,31 @@ Calculation has informative visualization and takes into account house price gro
             }
         }
 
-        function populate(city, buyPrice, year) {
+        function emailSubscribe() {
+            var city = $("#city")[0].value;
+            var price = $("#price")[0].value;
+            var year = $("#year")[0].value.split("-").join("");
+            var email = $("#emailid")[0].value;
 
+            var data = "{\"city\":\""+city+"\", \"buyPrice\":"+price+"\", \"email\":"+email +", \"year\":"+ year +" }";
+
+            var d = new Date();
+            d.setTime(d.getTime() + (30*24*60*60*1000));
+            var expires = ";expires=" + d.toGMTString();
+            document.cookie = "input=" + city + "_" + price + "_" + year + expires + ";path=/";
+
+            $.ajax({
+                type: "POST",
+
+                url: "/add-notification",
+                data: data,
+                success: function(data){
+                    // do nothing
+                },
+                contentType : "application/json"
+
+            });
+            return false;
         }
 
         google.charts.load('current', { packages: ['line'] });
@@ -310,7 +333,7 @@ Calculation has informative visualization and takes into account house price gro
             <div class="signup clearfix" style="width: 400px; margin: auto">
                 <form id="subscriptionForm">
                     <input id="emailid" type="text" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"  name="email" class="form-control" placeholder="Your email address" />
-                    <input id="SubmitButton" type="submit" value="Subscribe" />
+                    <input id="SubmitButton" type="submit" value="Subscribe"  onclick="emailSubscribe()" />
                 </form>
             </div>
         </div>

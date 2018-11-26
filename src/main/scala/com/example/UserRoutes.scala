@@ -119,11 +119,8 @@ trait UserRoutes extends JsonSupport {
               concat(
                 post {
                   entity(as[HousePriceNotificationRequest]) { request =>
-
                       userRegistryActor ! AddEmailNotification(request)
                     complete(StatusCodes.Created)
-
-
                   }
                 }
               )
