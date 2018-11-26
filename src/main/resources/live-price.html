@@ -52,15 +52,15 @@ Calculation has informative visualization and takes into account house price gro
             height: 50px;
         }
 
-        input[type=submit] {
-            width: 100%;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+        /*input[type=submit] {*/
+            /*width: 100%;*/
+            /*color: white;*/
+            /*padding: 14px 20px;*/
+            /*margin: 8px 0;*/
+            /*border: none;*/
+            /*border-radius: 4px;*/
+            /*cursor: pointer;*/
+        /*}*/
 
         input[type=submit]:hover {
             background-color: #45a049;
@@ -87,7 +87,28 @@ Calculation has informative visualization and takes into account house price gro
             background-color: #4CAF50;
             color: #f2fff3;
         }
+
+
+        #chart_div svg g circle {
+            stroke: #4184F3 !important;
+            fill-opacity: 1;
+            r: 5;
+            fill: #4184F3 !important;
+            filter: none !important;
+        }
+        #chart_div svg g circle:hover {
+            r: 8
+        }
+        #chart_div svg g path {
+            stroke-width: 4 !important;
+            stroke: #4184F3 !important;
+            stroke-linejoin: bevel;
+            stroke-width: 1;
+            stroke-linecap: round;
+            filter: none !important;
+        }
     </style>
+
     <script type="text/javascript">
         function sendData() {
             var city = $("#city")[0].value;
@@ -104,11 +125,11 @@ Calculation has informative visualization and takes into account house price gro
             $.ajax({
                 type: "POST",
 
-                url: "/users",
+                url: "/get-history",
                 data: data,
                 success: function(data){
-                    $('#housePrice').text(data.livePrice);
-
+                    $('#housePrice').text(data.quotes[data.quotes.length-1].priceIndex.toFixed(1));
+                    drawBasic(data)
                 },
                  contentType : "application/json"
 
@@ -153,6 +174,43 @@ Calculation has informative visualization and takes into account house price gro
 
         function populate(city, buyPrice, year) {
 
+        }
+
+        google.charts.load('current', { packages: ['line'] });
+        // google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic(rawData) {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'X');
+            data.addColumn('number', 'Euro');
+
+            for (var quote of rawData.quotes) {
+                var year = parseInt(quote.date.toString().substring(0,4));
+                var month = parseInt(quote.date.toString().substring(4,6));
+                var day = parseInt(quote.date.toString().substring(6,8));
+                data.addRow([new Date(year, month, day), quote.priceIndex])
+            }
+
+            var options = {
+                colors: ["#4184F3"],
+                lineWidth: 3,
+                legend: {
+                    position: "none"
+                },
+                hAxis: {
+                    pointSize: 2,
+                    format: 'YYYY MMM',
+                    title: '',
+                    titlePosition: 'none'
+                },
+                vAxis: {
+                    title: 'Price'
+                }
+            };
+
+            var chart = new google.charts.Line(document.getElementById('chart_div'));
+            chart.draw(data, google.charts.Line.convertOptions(options));
         }
 
 
@@ -230,9 +288,31 @@ Calculation has informative visualization and takes into account house price gro
 
         <div class="main-header">
             <h3>Current house price:
-                € <div id="housePrice"/>
+                € <span id="housePrice"/>
             </h3>
+        </div>
+        <div class="divider"></div>
+        <div id="chart_div"></div>
 
+    </div>
+</div>
+
+<div id="subscribe" class="container">
+    <div class="container">
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="header" style="text-align: center">
+
+
+            <p>
+                Get every 3 months the updated price for your house.
+            </p>
+            <div class="signup clearfix" style="width: 400px; margin: auto">
+                <form id="subscriptionForm">
+                    <input id="emailid" type="text" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"  name="email" class="form-control" placeholder="Your email address" />
+                    <input id="SubmitButton" type="submit" value="Subscribe" />
+                </form>
+            </div>
         </div>
     </div>
 </div>

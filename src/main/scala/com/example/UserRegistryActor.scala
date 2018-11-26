@@ -130,7 +130,7 @@ class UserRegistryActor extends Actor with ActorLogging {
       priceHistory("U").append(HousePriceQuote(date.toInt, p2.toDouble))
     })
 
-    FileIO.fromPath(Paths.get("C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"))
+    FileIO.fromPath(Paths.get("/Users/mac/Downloads/HPTB2/src/main/scala/csv/Amsterdam.csv"))
       .via(Framing.delimiter(ByteString("\n"), 256, true).map(_.utf8String))
       .to(sink)
       .run()
