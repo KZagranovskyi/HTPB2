@@ -178,7 +178,7 @@ Calculation has informative visualization and takes into account house price gro
             var year = $("#year")[0].value.split("-").join("");
             var email = $("#emailid")[0].value;
 
-            var data = "{\"city\":\""+city+"\", \"buyPrice\":"+price+"\", \"email\":"+email +", \"year\":"+ year +" }";
+            var data = "{\"city\":\""+city+"\", \"buyPrice\":"+price+", \"email\":\""+email +"\", \"year\":"+ year +" }";
 
             var d = new Date();
             d.setTime(d.getTime() + (30*24*60*60*1000));
@@ -333,7 +333,7 @@ Calculation has informative visualization and takes into account house price gro
             <div class="signup clearfix" style="width: 400px; margin: auto">
                 <form id="subscriptionForm">
                     <input id="emailid" type="text" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"  name="email" class="form-control" placeholder="Your email address" />
-                    <input id="SubmitButton" type="submit" value="Subscribe"  onclick="emailSubscribe()" />
+                    <input id="SubmitButton" type="button" value="Subscribe"  onclick="emailSubscribe()" />
                 </form>
             </div>
         </div>

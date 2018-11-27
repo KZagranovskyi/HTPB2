@@ -1,7 +1,7 @@
 package com.example
 
 //#user-registry-actor
-import java.io.{File, PrintWriter}
+import java.io.{File, FileWriter, PrintWriter}
 import java.nio.file.Paths
 
 import akka.actor.{Actor, ActorLogging, Props}
@@ -53,8 +53,24 @@ class UserRegistryActor extends Actor with ActorLogging {
   import UserRegistryActor._
 
   val priceHistory: Map[String,ListBuffer[HousePriceQuote]] = Map(
+    "Groningen" -> ListBuffer[HousePriceQuote](),
+    "Friesland" -> ListBuffer[HousePriceQuote](),
+    "Drenthe" -> ListBuffer[HousePriceQuote](),
+    "Overijssel" -> ListBuffer[HousePriceQuote](),
+    "Flevoland" -> ListBuffer[HousePriceQuote](),
+    "Gelderland" -> ListBuffer[HousePriceQuote](),
+    "Utrecht" -> ListBuffer[HousePriceQuote](),
+    "Noord-Holland" -> ListBuffer[HousePriceQuote](),
+    "Zuid-Holland" -> ListBuffer[HousePriceQuote](),
+    "Zeeland" -> ListBuffer[HousePriceQuote](),
+    "Noord-Brabant" -> ListBuffer[HousePriceQuote](),
+    "Limburg" -> ListBuffer[HousePriceQuote](),
     "Amsterdam" -> ListBuffer[HousePriceQuote](),
-    "U" -> ListBuffer[HousePriceQuote]())
+    "The Hague" -> ListBuffer[HousePriceQuote](),
+    "Rotterdam" -> ListBuffer[HousePriceQuote](),
+    "Utrecht(city)" -> ListBuffer[HousePriceQuote]()
+  )
+
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
 
@@ -80,8 +96,8 @@ class UserRegistryActor extends Actor with ActorLogging {
   }
 
   def addEmailNotification(r: HousePriceNotificationRequest): Unit ={
-    val writer = new PrintWriter(new File("Emails.txt"))
-    writer.write(r.email + "," + r.city + "," + r.year + "," + r.buyPrice)
+    val writer = new FileWriter("Emails.txt", true)
+    writer.append(r.email + "," + r.city + "," + r.year + "," + r.buyPrice+"\n")
     writer.close()
   }
 
@@ -124,12 +140,27 @@ class UserRegistryActor extends Actor with ActorLogging {
 
   def populateHistoricalPrices(): Unit = {
     val sink = Sink.foreach[String](x => {
-      val Array(date, p1, p2) = x.split(",").map(_.trim)
-      priceHistory("Amsterdam").append(HousePriceQuote(date.toInt, p1.toDouble))
-      priceHistory("U").append(HousePriceQuote(date.toInt, p2.toDouble))
+      val Array(date, p1, p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17) = x.split(",").map(_.trim)
+      priceHistory("Groningen").append(HousePriceQuote(date.toInt, p1.toDouble))
+      priceHistory("Friesland").append(HousePriceQuote(date.toInt, p2.toDouble))
+      priceHistory("Drenthe").append(HousePriceQuote(date.toInt, p3.toDouble))
+      priceHistory("Overijssel").append(HousePriceQuote(date.toInt, p4.toDouble))
+      priceHistory("Flevoland").append(HousePriceQuote(date.toInt, p5.toDouble))
+      priceHistory("Gelderland").append(HousePriceQuote(date.toInt, p6.toDouble))
+      priceHistory("Utrecht").append(HousePriceQuote(date.toInt, p7.toDouble))
+      priceHistory("Noord-Holland").append(HousePriceQuote(date.toInt, p8.toDouble))
+      priceHistory("Zuid-Holland").append(HousePriceQuote(date.toInt, p9.toDouble))
+      priceHistory("Zeeland").append(HousePriceQuote(date.toInt, p10.toDouble))
+      priceHistory("Noord-Brabant").append(HousePriceQuote(date.toInt, p11.toDouble))
+      priceHistory("Limburg").append(HousePriceQuote(date.toInt, p12.toDouble))
+      priceHistory("Amsterdam").append(HousePriceQuote(date.toInt, p13.toDouble))
+      priceHistory("The Hague").append(HousePriceQuote(date.toInt, p14.toDouble))
+      priceHistory("Rotterdam").append(HousePriceQuote(date.toInt, p15.toDouble))
+      priceHistory("Amsterdam").append(HousePriceQuote(date.toInt, p16.toDouble))
+      priceHistory("Utrecht(city)").append(HousePriceQuote(date.toInt, p17.toDouble))
     })
 
-    FileIO.fromPath(Paths.get("/Users/mac/Downloads/HPTB2/src/main/scala/csv/Amsterdam.csv"))
+    FileIO.fromPath(Paths.get("C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"))
       .via(Framing.delimiter(ByteString("\n"), 256, true).map(_.utf8String))
       .to(sink)
       .run()
