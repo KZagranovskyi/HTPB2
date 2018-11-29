@@ -1,13 +1,13 @@
 package com.example
 
 //#user-registry-actor
-import java.io.{File, FileWriter, PrintWriter}
+import java.io.{ File, FileWriter, PrintWriter }
 import java.nio.file.Paths
 
-import akka.actor.{Actor, ActorLogging, Props}
+import akka.actor.{ Actor, ActorLogging, Props }
 import akka.stream.ActorMaterializer
 import akka.stream.javadsl.Sink
-import akka.stream.scaladsl.{FileIO, Framing}
+import akka.stream.scaladsl.{ FileIO, Framing }
 import akka.util.ByteString
 
 import scala.collection.mutable.ListBuffer
@@ -17,9 +17,7 @@ final case class HousePriceRequest(city: String, buyPrice: Int, year: Int)
 
 final case class Users(users: Seq[HousePriceRequest])
 
-final case class HousePriceNotificationRequest(city: String, buyPrice: Int, year: Int, email : String)
-
-
+final case class HousePriceNotificationRequest(city: String, buyPrice: Int, year: Int, email: String)
 
 //#user-case-classes
 
@@ -52,7 +50,7 @@ class UserRegistryActor extends Actor with ActorLogging {
 
   import UserRegistryActor._
 
-  val priceHistory: Map[String,ListBuffer[HousePriceQuote]] = Map(
+  val priceHistory: Map[String, ListBuffer[HousePriceQuote]] = Map(
     "Groningen" -> ListBuffer[HousePriceQuote](),
     "Friesland" -> ListBuffer[HousePriceQuote](),
     "Drenthe" -> ListBuffer[HousePriceQuote](),
@@ -72,7 +70,6 @@ class UserRegistryActor extends Actor with ActorLogging {
   )
 
   implicit val materializer: ActorMaterializer = ActorMaterializer()
-
 
   var requestsSet = Set.empty[HousePriceRequest]
 
@@ -95,9 +92,9 @@ class UserRegistryActor extends Actor with ActorLogging {
       addEmailNotification(request)
   }
 
-  def addEmailNotification(r: HousePriceNotificationRequest): Unit ={
+  def addEmailNotification(r: HousePriceNotificationRequest): Unit = {
     val writer = new FileWriter("Emails.txt", true)
-    writer.append(r.email + "," + r.city + "," + r.year + "," + r.buyPrice+"\n")
+    writer.append(r.email + "," + r.city + "," + r.year + "," + r.buyPrice + "\n")
     writer.close()
   }
 
@@ -129,7 +126,7 @@ class UserRegistryActor extends Actor with ActorLogging {
     }
 
     for (p <- priceHistory(request.city)) {
-      if (request.year > p.date) {
+      if (request.year < p.date) {
         val livePrice = request.buyPrice * (p.priceIndex / priceIndex.get)
         priceList.append(HousePriceQuote(p.date, livePrice))
       }
@@ -140,7 +137,7 @@ class UserRegistryActor extends Actor with ActorLogging {
 
   def populateHistoricalPrices(): Unit = {
     val sink = Sink.foreach[String](x => {
-      val Array(date, p1, p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17) = x.split(",").map(_.trim)
+      val Array(date, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16) = x.split(",").map(_.trim)
       priceHistory("Groningen").append(HousePriceQuote(date.toInt, p1.toDouble))
       priceHistory("Friesland").append(HousePriceQuote(date.toInt, p2.toDouble))
       priceHistory("Drenthe").append(HousePriceQuote(date.toInt, p3.toDouble))
@@ -156,11 +153,15 @@ class UserRegistryActor extends Actor with ActorLogging {
       priceHistory("Amsterdam").append(HousePriceQuote(date.toInt, p13.toDouble))
       priceHistory("The Hague").append(HousePriceQuote(date.toInt, p14.toDouble))
       priceHistory("Rotterdam").append(HousePriceQuote(date.toInt, p15.toDouble))
-      priceHistory("Amsterdam").append(HousePriceQuote(date.toInt, p16.toDouble))
-      priceHistory("Utrecht(city)").append(HousePriceQuote(date.toInt, p17.toDouble))
+      priceHistory("Utrecht(city)").append(HousePriceQuote(date.toInt, p16.toDouble))
     })
 
-    FileIO.fromPath(Paths.get("C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"))
+    var path = "C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"
+    if (! new java.io.File(path).exists){
+      path = "/home/Amsterdam.csv"
+    }
+
+    FileIO.fromPath(Paths.get(path))
       .via(Framing.delimiter(ByteString("\n"), 256, true).map(_.utf8String))
       .to(sink)
       .run()

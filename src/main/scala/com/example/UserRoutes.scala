@@ -41,14 +41,14 @@ trait UserRoutes extends JsonSupport {
       getFromFile("index2.html")
   } ~
     pathPrefix("images") {
-            getFromResourceDirectory("images")
-    }  ~
+      getFromResourceDirectory("images")
+    } ~
     pathPrefix("scss") {
       getFromResourceDirectory("scss")
-    }  ~
+    } ~
     pathPrefix("js") {
       getFromResourceDirectory("js")
-    }  ~
+    } ~
     pathPrefix("dist") {
       getFromResourceDirectory("dist")
     } ~
@@ -71,60 +71,60 @@ trait UserRoutes extends JsonSupport {
       getFromResource("live-price.html")
     } ~
     pathPrefix("users") {
+      concat(
+        //#users-get-delete
+        pathEnd {
           concat(
-            //#users-get-delete
-            pathEnd {
-              concat(
-                get {
-                  val users: Future[Users] =
-                    (userRegistryActor ? GetUsers).mapTo[Users]
-                  complete(users)
-                },
-                post {
-                  entity(as[HousePriceRequest]) { user =>
-                    val userCreated: Future[ActionPerformed] =
-                      (userRegistryActor ? LivePriceRequest(user)).mapTo[ActionPerformed]
-                    onSuccess(userCreated) { performed =>
-                      log.info("Created user [{}]: {}", user.city, performed.livePrice)
-                      complete((StatusCodes.Created, performed))
-                    }
+            get {
+              val users: Future[Users] =
+                (userRegistryActor ? GetUsers).mapTo[Users]
+              complete(users)
+            },
+            post {
+              entity(as[HousePriceRequest]) { user =>
+                val userCreated: Future[ActionPerformed] =
+                  (userRegistryActor ? LivePriceRequest(user)).mapTo[ActionPerformed]
+                onSuccess(userCreated) { performed =>
+                  log.info("Created user [{}]: {}", user.city, performed.livePrice)
+                  complete((StatusCodes.Created, performed))
+                }
 
-                  }
-                }
-              )
-            }
-          )
-        } ~
-        pathPrefix("get-history") {
-          concat(
-            pathEnd {
-              concat(
-                post {
-                  entity(as[HousePriceRequest]) { request =>
-                    val data: Future[HousePriceHistory] =
-                      (userRegistryActor ? LivePriceHistoryRequest(request)).mapTo[HousePriceHistory]
-                      onSuccess(data) { performed =>
-                        complete((StatusCodes.Created,performed))
-                      }
-
-                  }
-                }
-              )
-            }
-          )
-        }   ~
-        pathPrefix("add-notification") {
-          concat(
-            pathEnd {
-              concat(
-                post {
-                  entity(as[HousePriceNotificationRequest]) { request =>
-                      userRegistryActor ! AddEmailNotification(request)
-                    complete(StatusCodes.Created)
-                  }
-                }
-              )
+              }
             }
           )
         }
+      )
+    } ~
+    pathPrefix("get-history") {
+      concat(
+        pathEnd {
+          concat(
+            post {
+              entity(as[HousePriceRequest]) { request =>
+                val data: Future[HousePriceHistory] =
+                  (userRegistryActor ? LivePriceHistoryRequest(request)).mapTo[HousePriceHistory]
+                onSuccess(data) { performed =>
+                  complete((StatusCodes.Created, performed))
+                }
+
+              }
+            }
+          )
+        }
+      )
+    } ~
+    pathPrefix("add-notification") {
+      concat(
+        pathEnd {
+          concat(
+            post {
+              entity(as[HousePriceNotificationRequest]) { request =>
+                userRegistryActor ! AddEmailNotification(request)
+                complete(StatusCodes.Created)
+              }
+            }
+          )
+        }
+      )
+    }
 }

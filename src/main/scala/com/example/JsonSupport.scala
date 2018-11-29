@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.UserRegistryActor.{ActionPerformed, HousePriceHistory, HousePriceQuote}
+import com.example.UserRegistryActor.{ ActionPerformed, HousePriceHistory, HousePriceQuote }
 
 //#json-support
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
