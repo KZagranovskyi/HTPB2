@@ -157,7 +157,7 @@ class UserRegistryActor extends Actor with ActorLogging {
     })
 
     var path = "C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"
-    if (! new java.io.File(path).exists){
+    if (!new java.io.File(path).exists) {
       path = "/home/Amsterdam.csv"
     }
 
