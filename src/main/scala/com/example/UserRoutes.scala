@@ -70,6 +70,12 @@ trait UserRoutes extends JsonSupport {
     pathPrefix("live-price") {
       getFromResource("live-price.html")
     } ~
+    pathPrefix("sitemap.xml") {
+      getFromResource("sitemap.xml")
+    } ~
+    pathPrefix("robots.txt") {
+      getFromResource("robots.txt")
+    } ~
     pathPrefix("users") {
       concat(
         //#users-get-delete

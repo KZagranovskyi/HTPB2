@@ -19,9 +19,9 @@ object QuickstartServer extends App with UserRoutes {
 
   lazy val routes: Route = userRoutes
 
-  Http().bindAndHandle(routes, "localhost", 8080)
+  Http().bindAndHandle(routes, "0.0.0.0", 80)
 
-  println(s"Server online at http://localhost:8080/")
+  println(s"Server online at http://0.0.0.0:80/")
 
   Await.result(system.whenTerminated, Duration.Inf)
 }
