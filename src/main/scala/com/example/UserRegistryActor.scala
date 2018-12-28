@@ -1,13 +1,12 @@
 package com.example
 
 //#user-registry-actor
-import java.io.{ File, FileWriter, PrintWriter }
-import java.nio.file.Paths
+import java.io.FileWriter
 
-import akka.actor.{ Actor, ActorLogging, Props }
+import akka.actor.{Actor, ActorLogging, Props}
 import akka.stream.ActorMaterializer
 import akka.stream.javadsl.Sink
-import akka.stream.scaladsl.{ FileIO, Framing }
+import akka.stream.scaladsl.{Framing, StreamConverters}
 import akka.util.ByteString
 
 import scala.collection.mutable.ListBuffer
@@ -156,12 +155,7 @@ class UserRegistryActor extends Actor with ActorLogging {
       priceHistory("Utrecht(city)").append(HousePriceQuote(date.toInt, p16.toDouble))
     })
 
-    var path = "C:\\Users\\kostya\\Downloads\\akka-http-quickstart-scala\\HTPB2\\src\\main\\scala\\csv\\Amsterdam.csv"
-    if (!new java.io.File(path).exists) {
-      path = "/home/Amsterdam.csv"
-    }
-
-    FileIO.fromPath(Paths.get(path))
+    StreamConverters.fromInputStream(() => getClass().getClassLoader().getResourceAsStream("csv/Amsterdam.csv"))
       .via(Framing.delimiter(ByteString("\n"), 256, true).map(_.utf8String))
       .to(sink)
       .run()
