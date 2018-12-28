@@ -588,7 +588,7 @@ input[type="range"]:focus + .rangeslider .rangeslider__handle {
                       data: data,
                       success: function(data){
                           $('#housePrice').text(input[1]);
-                          $('#extra').text(data.livePrice-input[1]);
+                          $('#extra').text(Math.round(data.livePrice-input[1]));
 
                       },
                       contentType : "application/json"
