@@ -3,10 +3,10 @@ package com.example
 //#user-registry-actor
 import java.io.FileWriter
 
-import akka.actor.{Actor, ActorLogging, Props}
+import akka.actor.{ Actor, ActorLogging, Props }
 import akka.stream.ActorMaterializer
 import akka.stream.javadsl.Sink
-import akka.stream.scaladsl.{Framing, StreamConverters}
+import akka.stream.scaladsl.{ Framing, StreamConverters }
 import akka.util.ByteString
 
 import scala.collection.mutable.ListBuffer
